@@ -89,6 +89,7 @@
 </html>
 
 <script>
+        currentTurn = 'X';
         //Creating 9 squares using spec provided code
         const NUM_SQUARES = 9;
         for(i = 0; i < NUM_SQUARES; i++){
@@ -104,11 +105,20 @@
         //Place 3 squares per row
         for(i = 0; i < NUM_SQUARES; i++){
                 const rowIndex = Math.floor(i / 3);
-                rows[rowIndex].appendChild(squares[i]); 
+                rows[rowIndex].appendChild(squares[i]);
+
+                const index = i;
+                squares[i].addEventListener('click', function() {
+                        squareClick(index);
+                }); 
         }
 
-        //HardCoded element placements
-        document.getElementById('sq2').textContent = "X";
-        document.getElementById('sq3').textContent = "O";
+        function squareClick(squareIndex) {
+                document.getElementById('sq' + squareIndex).textContent = currentTurn;
+                alert(squareIndex);
+                if(currentTurn == 'X'){
+                        document.getElementByClass('sq' + squareIndex).textContent = currentTurn;
+                }
+        }
 
 </script>
