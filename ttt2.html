@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<style>
+        h1 {
+                font-size: 55px;
+                text-align: center;
+        }
+        .message-wrapper{
+                display: flex;
+                justify-content: center;
+                align-items: center; 
+                margin: 20px;   
+        }
+        .turnBoard{
+                font-size: 40px;
+                border-style: solid;   
+                width: 300px;
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+        }
+        .winBoard{
+                font-size: 60px;
+                border-style: solid;   
+                width: 500px;
+                height: 70px;
+                line-height: 70px;
+                text-align: center;
+        }
+        .game-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;       
+        }
+        .gameBoard {
+                width: 360px;
+                height: 375px;
+                border-style: solid;
+        }
+        .gameRow {
+                float: center;
+                display: flex;
+        }
+        .square {
+                width: 100px;
+                height: 100px;
+                border-style: solid;
+                margin: 10px;
+                line-height: 100px;
+                text-align: center;
+                font-size: 95px;
+        }
+
+        .square:hover{
+                background-color: #e0f7fa;
+        }
+
+</style>
+
+<html>
+        <head>
+                <title>Tac Tac Toe</title>
+        </head>
+
+        <header>
+                <h1>Tic Tac Toe- Let's Go!</h1>
+        </header>
+
+        <body>
+                <div class="message-wrapper">
+                        <div class="turnBoard">X's turn</div>
+                </div>
+                <div class="game-wrapper">
+                        <div class="gameBoard">
+                                <div class="gameRow"></div>
+                                <div class="gameRow"></div>
+                                <div class="gameRow"></div>
+                        </div>
+                </div>
+                <div class="message-wrapper">
+                        <div class="winBoard"><strong>No One Wins!</strong></div>
+                </div>
+
+                <footer>
+                        Disclaimer this is site for a class <br>
+                        &copy; 2024 Tic Tac the Toes LLC, LP... aka no liablity ever
+                </footer>
+        </body>
+
+</html>
+
+<script>
+        //Creating 9 squares using spec provided code
+        const NUM_SQUARES = 9;
+        for(i = 0; i < NUM_SQUARES; i++){
+                id = "sq" + i;
+                document.write("<div class= 'square' id='"+ id + "' ></div>")
+        }
+        //end of spec provided code
+        
+        //get all instances of squares (9 made from javascript) and rows (3 in html)
+        const squares = document.querySelectorAll('.square');
+        const rows = document.querySelectorAll('.gameRow');
+        
+        //Place 3 squares per row
+        for(i = 0; i < NUM_SQUARES; i++){
+                const rowIndex = Math.floor(i / 3);
+                rows[rowIndex].appendChild(squares[i]); 
+        }
+
+        //HardCoded element placements
+        const x1 = getElementById(sq2);
+        x1
+
+</script>
