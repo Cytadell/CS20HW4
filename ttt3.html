@@ -53,6 +53,14 @@
         .square:hover{
                 background-color: #e0f7fa;
         }
+        button {
+                font-size: 45px;
+                border-style: solid;   
+                width: 300px;
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+        }
 
 </style>
 
@@ -75,6 +83,9 @@
                                 <div class="gameRow"></div>
                                 <div class="gameRow"></div>
                         </div>
+                </div>
+                <div class="message-wrapper">
+                        <button type="button" onclick="startGame()">Start Game</button>
                 </div>
                 <div class="message-wrapper">
                         <div class="winBoard"><strong>No One Wins!</strong></div>
@@ -119,13 +130,11 @@
         function startGame(){
                 const NUM_SQUARES = 9;
                 for(i = 0; i < NUM_SQUARES; i++){
-                        document.getElementById('sq' + squareIndex).textContent = "";
+                        document.getElementById("sq" + i).textContent = "";
                 }
                 currentTurn = choosePlayer();
                 document.getElementById("tb").textContent = currentTurn + "'s Turn";
         }
-
-        startGame();
 
         //Creating 9 squares using spec provided code
         const NUM_SQUARES = 9;
@@ -149,5 +158,7 @@
                         squareClick(index);
                 }); 
         }
+        
+        startGame();
 
 </script>
