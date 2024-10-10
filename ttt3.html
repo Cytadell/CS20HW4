@@ -67,7 +67,7 @@
 
         <body>
                 <div class="message-wrapper">
-                        <div class="turnBoard">X's turn</div>
+                        <div class="turnBoard" id="tb"></div>
                 </div>
                 <div class="game-wrapper">
                         <div class="gameBoard">
@@ -89,7 +89,44 @@
 </html>
 
 <script>
-        currentTurn = 'X';
+        var currentTurn;
+
+        function squareClick(squareIndex) {
+                if( document.getElementById('sq' + squareIndex).textContent == ''){
+                        document.getElementById('sq' + squareIndex).textContent = currentTurn;
+                        alert(currentTurn + "'s Move -" + squareIndex);
+                        if(currentTurn == 'X'){
+                                currentTurn = 'O';
+                                document.getElementById("tb").textContent = "O's Turn";
+                        }
+                        else{
+                                currentTurn = 'X';
+                                document.getElementById("tb").textContent = "X's Turn";
+                        }
+                }
+        }
+
+        function choosePlayer() {
+                let rand = Math.floor(Math.random() * 2);
+                if(rand == 0){
+                        return 'X';
+                }
+                else{
+                        return "O";
+                }
+        }
+
+        function startGame(){
+                const NUM_SQUARES = 9;
+                for(i = 0; i < NUM_SQUARES; i++){
+                        document.getElementById('sq' + squareIndex).textContent = "";
+                }
+                currentTurn = choosePlayer();
+                document.getElementById("tb").textContent = currentTurn + "'s Turn";
+        }
+
+        startGame();
+
         //Creating 9 squares using spec provided code
         const NUM_SQUARES = 9;
         for(i = 0; i < NUM_SQUARES; i++){
@@ -111,14 +148,6 @@
                 squares[i].addEventListener('click', function() {
                         squareClick(index);
                 }); 
-        }
-
-        function squareClick(squareIndex) {
-                document.getElementById('sq' + squareIndex).textContent = currentTurn;
-                alert(squareIndex);
-                if(currentTurn == 'X'){
-                        document.getElementByClass('sq' + squareIndex).textContent = currentTurn;
-                }
         }
 
 </script>
