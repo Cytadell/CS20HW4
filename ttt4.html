@@ -85,7 +85,7 @@
                         </div>
                 </div>
                 <div class="message-wrapper">
-                        <button type="button" onclick="startGame()">Restart?</button>
+                        <button type="button" onclick="startGame()">Restart Game?</button>
                 </div>
 
                 <footer>
@@ -97,6 +97,7 @@
 </html>
 
 <script>
+        //Declaring game control variables
         var currentTurn;
         var gameEnd;
 
@@ -123,12 +124,16 @@
                 }); 
         }
         
+        //Starting game
         startGame();
 
-
+        //Square click is called when player clicks on a square
         function squareClick(squareIndex) {
+                //Only does something if game isn't over and square is empty
                 if( document.getElementById('sq' + squareIndex).textContent == '' && !gameEnd){
+                        //Fills in square with correct letter
                         document.getElementById('sq' + squareIndex).textContent = currentTurn;
+                        //changes player turn and updates message board
                         if(currentTurn == 'X'){
                                 currentTurn = 'O';
                                 document.getElementById("tb").textContent = "O's Turn";
@@ -137,12 +142,16 @@
                                 currentTurn = 'X';
                                 document.getElementById("tb").textContent = "X's Turn";
                         }
+                        //Makes moves array
                         var moves = new Array(9);
                         squares.forEach((square,index) => {
                                 populateMoves(square,moves,index);
                         });
+                        //Makes winConditons array
                         var winConditions = makeWinCond(moves);
+                        //checks if game is over
                         var result = checkIfEnd(winConditions, moves);
+                        //If so the following
                         if(result == 'X'){
                                 document.getElementById("tb").textContent = "X Wins!";
                                 gameEnd = true;
@@ -157,40 +166,49 @@
                         }
                 }
         }
-
+        //Fills any blank move spots with dashes
         function populateMoves(element, moves, index){
                 moves[index] = element.textContent;
                 if(moves[index] == ""){
                         moves[index] = '-';
                 }
         }
-
+        //Fills in winConditions based on pass moves
         function makeWinCond(moves){
                 let winCond = Array(8).fill("");
                 //Horizontal Conditions
                 for(i = 0; i < 9; i++){
                         const rowIndex = Math.floor(i / 3);
-                        winCond[rowIndex] += moves[i];
+                        if(moves[i] != '-'){
+                                winCond[rowIndex] += moves[i];
+                        }
                 }
                 //Vertical Conditons
                 for(i = 0; i < 9; i++){
                         const colIndex = Math.floor(i / 3);
                         const currElement = colIndex + ((i % 3) * 3);
-                        winCond[colIndex + 3] += moves[currElement];
+                        if(moves[currElement] != '-'){
+                                winCond[colIndex + 3] += moves[currElement];
+                        }
                 }
                 //Diagonal Conditons
                 for(i = 0; i < 3; i++){
-                        winCond[6] += moves[i * 4];
+                        if(moves[i * 4] != '-'){
+                                winCond[6] += moves[i * 4];
+                        }
                 }
                 for(i = 0; i < 3; i++){
-                        winCond[7] += moves[2 + (i * 2)];
+                        if(moves[2 + (i * 2)] != '-'){
+                                winCond[7] += moves[2 + (i * 2)];
+                        }
                 }
-                
                 return winCond;
         }
-
+        //Checks if the game has ended
         function checkIfEnd(winCond, moves){
+                //Defaults that the game ended as tie
                 var result = '-';
+                //Checks if any conditon is fully complete and updates results if so
                 winCond.forEach((line) => {
                         if(line == "XXX"){
                                 result = 'X';
@@ -199,6 +217,7 @@
                                 result = 'O';
                         }
                 });
+                //If no current winner, checks if game will continue
                 if(result == '-'){
                         moves.forEach((element) => {
                                 if(element == '-'){
@@ -209,6 +228,7 @@
                 return result;
         }
 
+        //Randomizer function used by startGame() to chose first player
         function choosePlayer() {
                 let rand = Math.floor(Math.random() * 2);
                 if(rand == 0){
@@ -218,13 +238,16 @@
                         return "O";
                 }
         }
-
+        //Start game function 
         function startGame(){
+                //populates squares with blanks
                 const NUM_SQUARES = 9;
                 for(i = 0; i < NUM_SQUARES; i++){
                         document.getElementById("sq" + i).textContent = "";
                 }
+                //Choses random player
                 currentTurn = choosePlayer();
+                //Updates player turn message board
                 document.getElementById("tb").textContent = currentTurn + "'s Turn";
                 gameEnd = false;
         }
